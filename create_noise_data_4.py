@@ -74,6 +74,11 @@ class create_noise_data():
         self.date = d.strftime("%Y/%m/%d")
         self.time = d.strftime("%H:%M:%S")
 
+	#テスト用
+	#print self.avg_dB
+	#print self.date
+	#print self.time
+
         #pyaudioを閉じる
         p.terminate()
 
