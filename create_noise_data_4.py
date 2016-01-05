@@ -1,5 +1,4 @@
 # coding: utf-8
-
 import datetime
 import pyaudio
 import sys
@@ -13,7 +12,7 @@ class create_noise_data():
     def __init__(self,rcdsec):
         self.rcdsec = rcdsec
         self.avg_dB = 0
-        self.data = 0
+        self.date = 0
         self.time = 0
 
     def create_noise_data(self):
@@ -65,6 +64,7 @@ class create_noise_data():
         #音圧の平均値を求める
         avg_vol = float(sum(w_num_data))/float(len(w_num_data))
         avg_vol = math.fabs(avg_vol)
+
         #デシベルに変換
         self.avg_dB = 20*math.log10(avg_vol/1)
 
@@ -74,10 +74,10 @@ class create_noise_data():
         self.date = d.strftime("%Y/%m/%d")
         self.time = d.strftime("%H:%M:%S")
 
-	#テスト用
-	#print self.avg_dB
-	#print self.date
-	#print self.time
+    	#テスト用
+    	#print self.avg_dB
+    	#print self.date
+    	#print self.time
 
         #pyaudioを閉じる
         p.terminate()

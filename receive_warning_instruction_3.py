@@ -6,47 +6,49 @@ import json
 
 class receive_warning_instruction():
 
-
-
     def __init__(self,avg_dB,date,time,vol,playtime):
-	self.a = avg_dB
-	self.d = date
- 	self.t = time
+    	self.a = avg_dB
+    	self.d = date
+     	self.t = time
 
         #警告音再生インスタンス生成
         #()内はボリューム，再生時間
         self.mws = make_a_warning_sound_2.make_a_warning_sound(vol,playtime)
 
-	print self.a
-	print self.d
-	print self.t
+        #テスト用
+    	print self.a
+    	print self.d
+    	print self.t
 
     def receive_warning_instruction(self):
 
-	#URL
-	url = 'http://192.168.33.10/test/json.php'
+    	#URLを指定する
+    	url = 'http://192.168.33.10/test/json.php'
 
-	#parames_encode
-	params = {'dB' : self.a,'date':self.d,'time':self.t}
-	params = urllib.urlencode(params)
+    	#平均dB値，算出日，算出時刻のパラメータ作成
+    	params = {'dB' : self.a,'date':self.d,'time':self.t}
+        #パラメータをエンコードする
+    	params = urllib.urlencode(params)
 
-	#URL_parames_bond
-	URL = url + '?' + params
+    	#パラメータをURLに結合する
+    	URL = url + '?' + params
 
-	print URL
+    	print URL
 
-	#server_reqest
-	response = urllib2.urlopen(URL)
+    	#サーバにリクエストを送る
+    	response = urllib2.urlopen(URL)
 
-	#server_response
-	content = response.read()
-	#print(content)
+    	#サーバからレスポンスを受け取る
+    	content = response.read()
 
+    	#print(content)
+
+        #警告音を鳴らす命令を受け取った場合警告音を鳴らすメソッドを呼び出す
+        #鳴らさない命令を受け取った場合何もしない
         if '"go"' == content:
             self.mws.make_a_warning_sound()
         else:
             print "no"
-
 
 
 if __name__ == '__main__':
